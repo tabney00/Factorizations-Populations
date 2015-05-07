@@ -1,0 +1,43 @@
+package src.ui;
+
+import src.math.Matrix;
+import src.math.Vector;
+import src.population.*;
+
+import java.util.Arrays;
+
+public class Runner3 {
+    public static void main(String... args) {
+        double[] initialApprox = { 2.1, 1.9, 1.8, 2.1, 2.0, 1.7, 1.2, 0.9, 0.5 };
+
+        double[][] leslieMatrixArr = new double[ 9 ][ 9 ];
+        double[] firstRow = { 0.0, 1.2, 1.1, 0.9, 0.1, 0.0, 0.0, 0.0, 0.0};
+        leslieMatrixArr[0] = firstRow;
+        leslieMatrixArr[ 1 ][ 0 ] = 0.7;
+        leslieMatrixArr[ 2 ][ 1 ] = 0.85;
+        leslieMatrixArr[ 3 ][ 2 ] = 0.9;
+        leslieMatrixArr[ 4 ][ 3 ] = 0.9;
+        leslieMatrixArr[ 5 ][ 4 ] = 0.88;
+        leslieMatrixArr[ 6 ][ 5 ] = 0.8;
+        leslieMatrixArr[ 7 ][ 6 ] = 0.77;
+        leslieMatrixArr[ 8 ][ 7 ] = 0.4;
+
+        Matrix leslieMatrix = new Matrix( leslieMatrixArr );
+        Vector initialPop = new Vector( initialApprox );
+
+        LesliePopulation pop = new LesliePopulation( leslieMatrix, initialPop, 2000, 10 );
+
+        for ( int year = 2010; year < 2051; year += 10 ) {
+            pop.calcNextPopulation();
+        }
+
+        System.out.println( pop.getPops() );
+
+        //try {
+        //    System.out.println( leslieMatrix.calcEigenValue( 0.00000005 ) );
+        //} catch ( MatrixDoesNotConvergeException e ) {
+        //    System.out.println( e.getMessage() );
+        //}
+
+    }
+}
